@@ -1,14 +1,14 @@
 {
-  "name": "angular-advanced-searchbox",
-  "version": "1.1.1",
-  "homepage": "https://github.com/dnauck/angular-advanced-searchbox",
+  "name": "tcd-advanced-searchbox",
+  "version": "1.2.0",
+  "homepage": "https://github.com/TheCodeDestroyer/tcd-advanced-searchbox",
   "authors": [
-    "Daniel Nauck <d.nauck@nauck-it.de>"
+    "Nace Logar <the.code.destroyer@gmail.com>"
   ],
-  "description": "A directive for AngularJS providing a advanced visual search box",
+  "description": "A directive based on Angular Advanced Searchbox",
   "main": [
-    "dist/angular-advanced-searchbox.min.css",
-    "dist/angular-advanced-searchbox-tpls.js"
+    "dist/tcd-advanced-searchbox.min.css",
+    "dist/tcd-advanced-searchbox.min.js"
   ],
   "keywords": [
     "search",
@@ -19,7 +19,7 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
+    "lib",
     "src",
     "Gruntfile.js",
     "package.json",

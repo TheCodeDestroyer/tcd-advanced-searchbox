@@ -10,8 +10,8 @@
 
 'use strict';
 
-angular.module('angular-advanced-searchbox', [])
-    .directive('nitAdvancedSearchbox', function() {
+angular.module('tcd-advanced-searchbox', [])
+    .directive('tcdAdvancedSearchbox', function() {
         return {
             restrict: 'E',
             scope: {
@@ -19,7 +19,7 @@ angular.module('angular-advanced-searchbox', [])
                 parameters: '='
             },
             replace: true,
-            templateUrl: 'angular-advanced-searchbox.html',
+            templateUrl: 'tcd-advanced-searchbox.html',
             controller: [
                 '$scope', '$attrs', '$element', '$timeout', '$filter',
                 function ($scope, $attrs, $element, $timeout, $filter) {
@@ -212,13 +212,13 @@ angular.module('angular-advanced-searchbox', [])
             ]
         };
     })
-    .directive('nitSetFocus', [
+    .directive('tcdSetFocus', [
         '$timeout', '$parse',
         function($timeout, $parse) {
             return {
                 restrict: 'A',
                 link: function($scope, $element, $attrs) {
-                    var model = $parse($attrs.nitSetFocus);
+                    var model = $parse($attrs.tcdSetFocus);
                     $scope.$watch(model, function(value) {
                         if (value === true) {
                             $timeout(function() {
@@ -233,7 +233,7 @@ angular.module('angular-advanced-searchbox', [])
             };
         }
     ])
-    .directive('nitAutoSizeInput', [
+    .directive('tcsAutoSizeInput', [
         function() {
             return {
                 restrict: 'A',

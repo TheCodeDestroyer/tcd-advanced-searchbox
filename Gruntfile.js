@@ -18,7 +18,7 @@ module.exports = function(grunt) {
     },
     ngtemplates: {
       options: {
-        module: 'angular-advanced-searchbox',
+        module: 'tcd-advanced-searchbox',
         htmlmin: {
           collapseBooleanAttributes:      true,
           collapseWhitespace:             true,
@@ -34,30 +34,22 @@ module.exports = function(grunt) {
         cwd: 'src/',
         src: ['*.html'],
         dest: 'tmp/templates.js'
-      },
+      }
     },
     concat: {
       template: {
         options: {
         },
         src: ['src/<%= pkg.name %>.js', '<%= ngtemplates.template.dest %>'],
-        dest: 'dist/<%= pkg.name %>-tpls.js'
+        dest: 'dist/<%= pkg.name %>.js'
       }
     },
     copy: {
       main : {
         files: [
           {
-            src: ['src/<%= pkg.name %>.js'], 
-            dest: 'dist/<%= pkg.name %>.js'
-          }
-        ]
-      },
-      template : {
-        files: [
-          {
-            src: ['src/<%= pkg.name %>.html'], 
-            dest: 'dist/<%= pkg.name %>.html'
+            src: ['src/<%= pkg.name %>.css'],
+            dest: 'dist/<%= pkg.name %>.css'
           }
         ]
       }
@@ -68,8 +60,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'dist/<%= pkg.name %>.min.js': ['dist/<%= pkg.name %>.js'],
-          'dist/<%= pkg.name %>-tpls.min.js': ['dist/<%= pkg.name %>-tpls.js'],
+          'dist/<%= pkg.name %>.min.js': ['dist/<%= pkg.name %>.js']
         }
       }
     },
