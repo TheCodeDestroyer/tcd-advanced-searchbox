@@ -233,7 +233,7 @@ angular.module('tcd-advanced-searchbox', [])
             };
         }
     ])
-    .directive('tcsAutoSizeInput', [
+    .directive('tcdAutoSizeInput', [
         function() {
             return {
                 restrict: 'A',
