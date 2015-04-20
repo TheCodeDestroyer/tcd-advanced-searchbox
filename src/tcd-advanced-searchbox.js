@@ -213,7 +213,7 @@
                                             $scope.model[param.key] = [];
                                         }
                                         $scope.model[param.key].push({
-                                            field: param.value,
+                                            searchValue: param.value,
                                             equality: param.equality.value
                                         });
                                     }
