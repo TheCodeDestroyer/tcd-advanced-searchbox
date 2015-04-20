@@ -28,15 +28,20 @@
                         $scope.searchParams = [];
                         $scope.searchQuery = '';
                         $scope.setSearchFocus = false;
-                        $scope.equalityChoices = [
-                            { value: 'Eq', text: 'Equal' },
-                            { value: 'Neq', text: 'Not equal' },
-                            { value: 'Lt', text: 'Lower' },
-                            { value: 'Gt', text: 'Greater' },
-                            { value: 'Lte', text: 'Equal or Lower' },
-                            { value: 'Gte', text: 'Equal or Greater' },
-                            { value: 'Con', text: 'Contains' }
-                        ];
+                        if($attrs.equalityChoices) {
+                            $scope.equalityChoices = $attrs.equalityChoices;
+                        }
+                        else {
+                            $scope.equalityChoices = [
+                                { value: 'Eq', text: 'Equal' },
+                                { value: 'Neq', text: 'Not equal' },
+                                { value: 'Lt', text: 'Lower' },
+                                { value: 'Gt', text: 'Greater' },
+                                { value: 'Lte', text: 'Equal or Lower' },
+                                { value: 'Gte', text: 'Equal or Greater' },
+                                { value: 'Con', text: 'Contains' }
+                            ];
+                        }
 
                         $scope.$watch('searchQuery', function () {
                             updateModel();
@@ -47,24 +52,27 @@
                         }, true);
 
                         $scope.enterEditMode = function(index) {
-                            if (index === undefined)
+                            if (index === undefined) {
                                 return;
+                            }
 
                             var searchParam = $scope.searchParams[index];
                             searchParam.editMode = true;
                         };
 
                         $scope.leaveEditMode = function(index) {
-                            if (index === undefined)
+                            if (index === undefined) {
                                 return;
+                            }
 
                             var searchParam = $scope.searchParams[index];
                             searchParam.editMode = false;
                             searchParam.equality = $scope.equalityChoices[0];
 
                             // remove empty search params
-                            if (!searchParam.value)
+                            if (!searchParam.value) {
                                 $scope.removeSearchParam(index);
+                            }
                         };
 
                         $scope.typeaheadOnSelect = function (item, model, label) {
@@ -73,36 +81,40 @@
                         };
 
                         $scope.addSearchParam = function (searchParam, value, enterEditModel) {
-                            if (enterEditModel === undefined)
+                            if (enterEditModel === undefined) {
                                 enterEditModel = true;
+                            }
 
-                            $scope.searchParams.push(
-                                {
-                                    key: searchParam.key,
-                                    name: searchParam.name,
-                                    placeholder: searchParam.placeholder,
-                                    value: value || '',
-                                    editMode: enterEditModel
-                                }
-                            );
+                            var searchParamObject = _.findWhere($scope.searchParams, { key: searchParam.key });
 
-                            //TODO: hide used suggestion
+                            if(_.isEmpty(searchParamObject)) {
+                                $scope.searchParams.push(
+                                    {
+                                        key: searchParam.key,
+                                        name: searchParam.name,
+                                        placeholder: searchParam.placeholder,
+                                        value: [ value || '' ],
+                                        editMode: enterEditModel
+                                    }
+                                );
+                            }
+                            else {
+                                searchParamObject.value.push(value || '');
+                            }
                         };
 
                         $scope.removeSearchParam = function (index) {
-                            if (index === undefined)
+                            if (index === undefined) {
                                 return;
+                            }
 
                             $scope.searchParams.splice(index, 1);
 
-                            //TODO: show hidden/removed suggestion
                         };
 
                         $scope.removeAll = function() {
                             $scope.searchParams.length = 0;
                             $scope.searchQuery = '';
-
-                            //TODO: show hidden/removed suggestion
                         };
 
                         $scope.editPrevious = function(currentIndex) {
@@ -118,8 +130,9 @@
                         };
 
                         $scope.editNext = function(currentIndex) {
-                            if (currentIndex === undefined)
+                            if (currentIndex === undefined) {
                                 return;
+                            }
 
                             $scope.leaveEditMode(currentIndex);
 
@@ -133,14 +146,16 @@
 
                         $scope.keydown = function(e, searchParamIndex) {
                             var handledKeys = [8, 9, 13, 37, 39];
-                            if (handledKeys.indexOf(e.which) === -1)
+                            if (handledKeys.indexOf(e.which) === -1) {
                                 return;
+                            }
 
                             var cursorPosition = getCurrentCaretPosition(e.target);
 
                             if (e.which == 8) { // backspace
-                                if (cursorPosition === 0)
+                                if (cursorPosition === 0) {
                                     $scope.editPrevious(searchParamIndex);
+                                }
 
                             } else if (e.which == 9) { // tab
                                 if (e.shiftKey) {
@@ -155,12 +170,14 @@
                                 $scope.editNext(searchParamIndex);
 
                             } else if (e.which == 37) { // left
-                                if (cursorPosition === 0)
+                                if (cursorPosition === 0) {
                                     $scope.editPrevious(searchParamIndex);
+                                }
 
                             } else if (e.which == 39) { // right
-                                if (cursorPosition === e.target.value.length)
+                                if (cursorPosition === e.target.value.length) {
                                     $scope.editNext(searchParamIndex);
+                                }
                             }
                         };
 
@@ -185,8 +202,9 @@
 
                         var searchThrottleTimer;
                         function updateModel() {
-                            if (searchThrottleTimer)
+                            if (searchThrottleTimer) {
                                 $timeout.cancel(searchThrottleTimer);
+                            }
 
                             searchThrottleTimer = $timeout(function () {
                                 $scope.model = {};
@@ -225,23 +243,23 @@
             };
         })
         .directive('tcdSetFocus', ['$timeout', '$parse', function($timeout, $parse) {
-                return {
-                    restrict: 'A',
-                    link: function($scope, $element, $attrs) {
-                        var model = $parse($attrs.tcdSetFocus);
-                        $scope.$watch(model, function(value) {
-                            if (value === true) {
-                                $timeout(function() {
-                                    $element[0].focus();
-                                });
-                            }
-                        });
-                        $element.bind('blur', function() {
-                            $scope.$apply(model.assign($scope, false));
-                        });
-                    }
-                };
-            }
+            return {
+                restrict: 'A',
+                link: function($scope, $element, $attrs) {
+                    var model = $parse($attrs.tcdSetFocus);
+                    $scope.$watch(model, function(value) {
+                        if (value === true) {
+                            $timeout(function() {
+                                $element[0].focus();
+                            });
+                        }
+                    });
+                    $element.bind('blur', function() {
+                        $scope.$apply(model.assign($scope, false));
+                    });
+                }
+            };
+        }
         ])
         .directive('tcdAutoSizeInput', [
             function() {
