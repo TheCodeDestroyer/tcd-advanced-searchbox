@@ -85,22 +85,16 @@
                                 enterEditModel = true;
                             }
 
-                            var searchParamObject = _.findWhere($scope.searchParams, { key: searchParam.key });
-
-                            if(_.isEmpty(searchParamObject)) {
-                                $scope.searchParams.push(
-                                    {
-                                        key: searchParam.key,
-                                        name: searchParam.name,
-                                        placeholder: searchParam.placeholder,
-                                        value: [ value || '' ],
-                                        editMode: enterEditModel
-                                    }
-                                );
-                            }
-                            else {
-                                searchParamObject.value.push(value || '');
-                            }
+                            $scope.searchParams.push(
+                                {
+                                    key: searchParam.key,
+                                    name: searchParam.name,
+                                    equality: searchParam.equality,
+                                    placeholder: searchParam.placeholder,
+                                    value: value || '' ,
+                                    editMode: enterEditModel
+                                }
+                            );
                         };
 
                         $scope.removeSearchParam = function (index) {
@@ -109,17 +103,17 @@
                             }
 
                             $scope.searchParams.splice(index, 1);
-
                         };
 
                         $scope.removeAll = function() {
-                            $scope.searchParams.length = 0;
+                            $scope.searchParams = [];
                             $scope.searchQuery = '';
                         };
 
                         $scope.editPrevious = function(currentIndex) {
-                            if (currentIndex !== undefined)
+                            if (currentIndex !== undefined) {
                                 $scope.leaveEditMode(currentIndex);
+                            }
 
                             //TODO: check if index == 0 -> what then?
                             if (currentIndex > 0) {
@@ -215,7 +209,13 @@
 
                                 angular.forEach($scope.searchParams, function (param) {
                                     if (param.value !== undefined && param.value.length > 0) {
-                                        $scope.model[param.key] = param.value;
+                                        if(_.isEmpty($scope.model[param.key])) {
+                                            $scope.model[param.key] = [];
+                                        }
+                                        $scope.model[param.key].push({
+                                            field: param.value,
+                                            equality: param.equality.value
+                                        });
                                     }
                                 });
                             }, 500);
