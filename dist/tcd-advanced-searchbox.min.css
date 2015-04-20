@@ -1,5 +1,5 @@
 /*! 
- * tcd-advanced-searchbox v1.2.1
+ * tcd-advanced-searchbox v1.2.2
  * https://github.com/TheCodeDestroyer/tcd-advanced-searchbox
  * Copyright (c) 2015 Nace Logar http://thecodedestroyer.com/
  * License: MIT
