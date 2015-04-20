@@ -85,6 +85,7 @@
   // Custom Globals
   "globals"       : {         // additional predefined global variables
     "angular": true,
+    "module": true,
     "document": true
   }
 }

@@ -1,17 +1,16 @@
 module.exports = function(grunt) {
 
+  'use strict';
+
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     banner: '/*! \n * <%= pkg.title || pkg.name %> v<%= pkg.version %>\n' +
-      ' * <%= pkg.homepage %>\n' +
-      ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> <%= pkg.author.url %>\n' +
-      ' * License: <%= pkg.license %>\n' +
-      ' */\n',
+    ' * <%= pkg.homepage %>\n' +
+    ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> <%= pkg.author.url %>\n' +
+    ' * License: <%= pkg.license %>\n' +
+    ' */\n',
     jshint: {
-      all: [
-        './src/*.js', '*.js', '*.json'
-      ],
       options: {
         jshintrc: '.jshintrc'
       }
@@ -105,7 +104,7 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('default', ['build']);
-  grunt.registerTask('build', ['clean', 'jshint:all', 'ngtemplates', 'concat', 'copy', 'uglify', 'cssmin']);
+  grunt.registerTask('build', ['clean', 'jshint', 'ngtemplates', 'concat', 'copy', 'uglify', 'cssmin']);
   grunt.registerTask('makeRelease', ['bump-only', 'build', 'bump-commit']);
 
 };
