@@ -67,7 +67,6 @@
 
                             var searchParam = $scope.searchParams[index];
                             searchParam.editMode = false;
-                            searchParam.equality = $scope.equalityChoices[0];
 
                             // remove empty search params
                             if (!searchParam.value) {
@@ -83,6 +82,10 @@
                         $scope.addSearchParam = function (searchParam, value, enterEditModel) {
                             if (enterEditModel === undefined) {
                                 enterEditModel = true;
+                            }
+
+                            if (!searchParam.equality) {
+                                searchParam.equality = $scope.equalityChoices[0];
                             }
 
                             $scope.searchParams.push(
