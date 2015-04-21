@@ -1,6 +1,6 @@
 {
   "name": "tcd-advanced-searchbox",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "A directive based on Angular Advanced Searchbox",
   "main": "src/tcd-advanced-searchbox.js",
   "repository": {
