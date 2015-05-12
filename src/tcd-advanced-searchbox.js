@@ -93,6 +93,7 @@
                                     key: searchParam.key,
                                     name: searchParam.name,
                                     equality: searchParam.equality,
+                                    type: searchParam.type,
                                     placeholder: searchParam.placeholder,
                                     value: value || '' ,
                                     editMode: enterEditModel
@@ -217,6 +218,7 @@
                                         }
                                         $scope.model[param.key].push({
                                             searchValue: param.value,
+                                            type: param.type,
                                             equality: param.equality.value
                                         });
                                     }
